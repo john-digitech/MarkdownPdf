@@ -157,9 +157,9 @@ namespace MarkdownPdf
 
             Stack<int> numberedListCounts = new Stack<int>();
             int numberedListCount = 1;
-            numberedListCounts.Push(numberedListCount);
+            numberedListCounts.Push(numberedListCount);           
 
-            string[] lines = text.Split(Environment.NewLine);
+            string[] lines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
             foreach (string currentLine in lines)
             {
@@ -335,64 +335,64 @@ namespace MarkdownPdf
             {
                 if (Heading1TextRegEx.IsMatch(line))
                 {
-                    paragraph.AddFormattedText(line.Trim('#'), _header1Font);
+                    paragraph.AddFormattedText(line?.Trim('#'), _header1Font);
 
                     listCount = 1;
                 }
                 else if (Heading2TextRegEx.IsMatch(line))
                 {
-                    paragraph.AddFormattedText(line.Trim('#'), _header2Font);
+                    paragraph.AddFormattedText(line?.Trim('#'), _header2Font);
 
                     listCount = 1;
                 }
                 else if (Heading3TextRegEx.IsMatch(line))
                 {
-                    paragraph.AddFormattedText(line.Trim('#'), _header3Font);
+                    paragraph.AddFormattedText(line?.Trim('#'), _header3Font);
 
                     listCount = 1;
                 }
                 else if (Heading4TextRegEx.IsMatch(line))
                 {
-                    paragraph.AddFormattedText(line.Trim('#'), _header4Font);
+                    paragraph.AddFormattedText(line?.Trim('#'), _header4Font);
 
                     listCount = 1;
                 }
                 else if (Heading5TextRegEx.IsMatch(line))
                 {
-                    paragraph.AddFormattedText(line.Trim('#'), _header5Font);
+                    paragraph.AddFormattedText(line?.Trim('#'), _header5Font);
 
                     listCount = 1;
                 }
                 else if (Heading6TextRegEx.IsMatch(line))
                 {
-                    paragraph.AddFormattedText(line.Trim('#'), _header6Font);
+                    paragraph.AddFormattedText(line?.Trim('#'), _header6Font);
 
                     listCount = 1;
                 }
                 else if (BoldTextRegEx.IsMatch(line))
                 {
-                    paragraph.AddFormattedText(line.Trim('*'), _boldTextFont);
+                    paragraph.AddFormattedText(line?.Trim('*'), _boldTextFont);
                 }
                 else if (ItalicTextRegEx.IsMatch(line))
                 {
-                    paragraph.AddFormattedText(line.Trim('*'), _italicTextFont);
+                    paragraph.AddFormattedText(line?.Trim('*'), _italicTextFont);
                 }
                 else if (NumberedListTextRegEx.IsMatch(line))
                 {
-                    string text = line.Substring(3);
+                    string? text = line?.Substring(3);
 
                     paragraph.AddFormattedText($"{listCount++}. {text}", _regulatTextFont);
                 }
                 else if (ListTextRegEx.IsMatch(line))
                 {
                     paragraph.AddFormattedText($"{BulletCharacter} ");
-                    line = line.Substring(2);
+                    line = line?.Substring(2);
                     paragraph.AddFormattedText(line, _regulatTextFont);
                 }                
-                else if (line.StartsWith("-- "))
+                else if (line?.StartsWith("-- ") == true)
                 {
                     paragraph.AddFormattedText($"{CheckmarkCharacter} ", _glyphFont);
-                    line = line.Substring(3);
+                    line = line?.Substring(3);
                     paragraph.AddFormattedText(line, _regulatTextFont);
                 }
                 else
